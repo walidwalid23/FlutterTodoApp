@@ -8,7 +8,7 @@ class ListenedData extends ChangeNotifier{
   List<Map>? donetasks;
   Database? database;
 
-  Future createDatabase() async{
+  Future<void> createDatabase() async{
     try {
       database= await openDatabase("todo.db",
           version: 1,
@@ -30,9 +30,8 @@ class ListenedData extends ChangeNotifier{
       donetasks=await getDataFromDB(database,tablename: "DONETASKS");
       notifyListeners();
       //DELAYING A BIT TO TEST THE LOADING
-      Future.delayed(Duration(seconds:2));
-      //RETURNING ANYTHING AS A FUTURE
-  return true;
+      await Future.delayed(Duration(seconds:2));
+
 
     }
     catch(error){print("ERROR OCCURED:$error");
