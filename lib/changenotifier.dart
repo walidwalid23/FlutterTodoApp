@@ -49,7 +49,7 @@ class ListenedData extends ChangeNotifier{
     catch(error){print("erorr is:$error");}
   }
 
-  void deleteDataFromTasksTable({@required String? title,@required String? time,@required String? date} ) async{
+  Future<void> deleteDataFromTasksTable({@required String? title,@required String? time,@required String? date} ) async{
 
     int count=await database!.rawDelete('DELETE FROM TASKS WHERE TITLE="$title" AND TIME="$time" AND DATE="$date"');
 
@@ -57,7 +57,7 @@ class ListenedData extends ChangeNotifier{
     notifyListeners();
 
   }
-  void insertToDatabase({@required String? tablename,@required String? title,@required String? time,@required String? date }) async{
+  Future<void> insertToDatabase({@required String? tablename,@required String? title,@required String? time,@required String? date }) async{
     try{
       await database!.transaction((txn) async {
         int tottalrowsintable = await txn.rawInsert(
@@ -75,7 +75,7 @@ class ListenedData extends ChangeNotifier{
 
   }
 
-  void insertIntoDoneTasksTable({@required String? title,@required String? time,@required String? date}) async{
+  Future<void> insertIntoDoneTasksTable({@required String? title,@required String? time,@required String? date}) async{
     //INSERTING THE FINISHED TASKS INTO THE DONETASKS TABLE
     await database!.transaction((txn) async{
 
@@ -93,7 +93,7 @@ class ListenedData extends ChangeNotifier{
 
     notifyListeners();
   }
-  void deleteDataFromDoneTasksTable({@required String? title,@required String? time,@required String? date} ) async{
+  Future<void> deleteDataFromDoneTasksTable({@required String? title,@required String? time,@required String? date} ) async{
 
     int count=await database!.rawDelete('DELETE FROM DONETASKS WHERE TITLE="$title" AND TIME="$time" AND DATE="$date"');
 
